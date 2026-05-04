@@ -1,24 +1,17 @@
-name: Build zanod for ARM64
+name: zanod CI/CD
 
 on:
-  workflow_dispatch:
   push:
     branches: [arm-build]
-    paths:
-      - 'Dockerfile'
-      - '.github/workflows/dfx-arm-build.yml'
+  workflow_dispatch:
 
 env:
-  ZANO_REF: master
-  BUILD_WIDTH: 4
+  DOCKER_TAGS: dfxswiss/zanod:latest
 
 jobs:
   build-and-push:
-    name: Build zanod ARM64
+    name: Build and push
     runs-on: ubuntu-24.04-arm
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,15 +25,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push zano-runner
+      - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./Dockerfile
           push: true
           target: zano-runner
+          tags: ${{ env.DOCKER_TAGS }}
           platforms: linux/arm64
           build-args: |
-            BUILD_WIDTH=${{ env.BUILD_WIDTH }}
-            ZANO_REF=${{ env.ZANO_REF }}
-          tags: dfxswiss/zanod:${{ env.ZANO_REF }}-zano-runner,dfxswiss/zanod:latest
+            BUILD_WIDTH=4
+            ZANO_REF=master
