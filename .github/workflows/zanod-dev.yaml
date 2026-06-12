@@ -35,4 +35,4 @@ jobs:
           platforms: linux/arm64
           build-args: |
             BUILD_WIDTH=4
-            ZANO_REF=master
+            ZANO_REF=2.2.0.487
