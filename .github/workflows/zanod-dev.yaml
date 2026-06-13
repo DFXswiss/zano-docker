@@ -29,10 +29,11 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: ./Dockerfile.official
           push: true
           target: zano-runner
           tags: ${{ env.DOCKER_TAGS }}
           platforms: linux/amd64
           build-args: |
-            BUILD_WIDTH=4
-            ZANO_REF=2.2.0.487
+            ZANO_VERSION=2.2.0.487
+            ZANO_COMMIT=211dea6
