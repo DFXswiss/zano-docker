@@ -105,6 +105,14 @@ transparent.
 I will probably change the Dockerhub label strategy, and make these Actions a
 `strategy.matrix` at some point.
 
+### DFX deploy images (`:beta` / `:latest`)
+
+`zanod-dev.yaml` (`:beta`) and `zanod-prd.yaml` (`:latest`) build from `Dockerfile.official`,
+which packages Zano's official linux x64 release binary rather than self-compiling. The
+from-source `linux/arm64` build of 2.2.0 rejects canonical mainnet blocks, and self-compiling
+amd64 just reproduces the official binary; see `Dockerfile.official` for the full rationale. The
+legacy self-compile `./Dockerfile` is retained for testnet / arbitrary-ref builds.
+
 ## Usage Of `zano-runner`
 
 - **I use a local directory for local development, others may choose a more pure
