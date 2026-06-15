@@ -11,7 +11,7 @@ env:
 jobs:
   build-and-push:
     name: Build and push to PRD
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,7 +32,7 @@ jobs:
           push: true
           target: zano-runner
           tags: ${{ env.DOCKER_TAGS }}
-          platforms: linux/arm64
+          platforms: linux/amd64
           build-args: |
-            BUILD_WIDTH=4
-            ZANO_REF=master
+            ZANO_VERSION=2.2.0.487
+            ZANO_COMMIT=211dea6
